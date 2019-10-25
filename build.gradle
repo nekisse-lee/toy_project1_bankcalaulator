@@ -1,0 +1,65 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group = 'com.nekisse'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
+    compile('pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0')
+    
+    annotationProcessor 'org.projectlombok:lombok'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    compile'org.springframework.boot:spring-boot-configuration-processor:2.1.8.RELEASE'
+
+
+    providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+
+
+
+// excel 파일
+    compile group: 'org.apache.poi', name: 'poi', version: '3.11'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.11'
+    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '3.11'
+//    compile group: 'org.apache.poi', name: 'poi', version: '4.1.0'
+//    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
+//    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '4.1.0'
+//    compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '4.1.0'
+    compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
+
+
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
