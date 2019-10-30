@@ -40,6 +40,8 @@ dependencies {
 
     compile'org.springframework.boot:spring-boot-configuration-processor:2.1.8.RELEASE'
 
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
+
 
     providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
 

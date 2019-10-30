@@ -3,6 +3,7 @@ package com.nekisse.service;
 import com.nekisse.domain.BankAccount;
 import com.nekisse.domain.BankAccountRepository;
 import com.nekisse.domain.dto.BankDto;
+import com.nekisse.domain.dto.FindUserRequestDto;
 import com.nekisse.read.LocalRead;
 import com.nekisse.read.ExcelReadOption;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class BankAccountService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    public void lll() {
+    public void excelFileReadAndSave() {
         ExcelReadOption ro = new ExcelReadOption();
 //        ClassPathResource classPathResource = new ClassPathResource("/static/UPLOAD_FILES/KB_거래내역조회(459601-01-580016_20191020160628).xls");
 //        String path1 = classPathResource.getPath();
@@ -25,7 +26,8 @@ public class BankAccountService {
 //
 //        String s = path.toString();
 //        System.out.println("s = " + s);
-        ro.setFilePath("/Users/nekisse/Documents/intellij_workspace/my_calculator/src/main/resources/static/UPLOAD_FILES/KB_거래내역조회(459601-01-580016_20191020160628).xls");
+//        ro.setFilePath("/Users/nekisse/Documents/intellij_workspace/my_calculator/src/main/resources/static/UPLOAD_FILES/KB_거래내역조회(459601-01-580016_20191020160628).xls");
+        ro.setFilePath("uploads/KB_거래내역조회 10-28.xls");
         ro.setOutputColumns("A", "C", "E", "F", "G");
 //        List<Member> members = new ArrayList<>();
 
@@ -43,7 +45,6 @@ public class BankAccountService {
         }
 //        System.out.println("members = " + members);
     }
-
 
 
     private void saveRepository(Map<String, String> row, List<String> outputColumns, BankDto bankDto) {
@@ -77,15 +78,18 @@ public class BankAccountService {
     }
 
 
-    public List<BankDto> findHistoryOfOneDepositor(String name) {
+    public List<BankDto> findHistoryOfNameOfDepositor(FindUserRequestDto name) {
+        List<BankDto> newBankDtos = new ArrayList<>();
+        if (name == null) {
+            return findAll(newBankDtos);
+        }
         List<BankAccount> all = bankAccountRepository.findAll();
         for (BankAccount bankAccount : all) {
             System.out.println(bankAccount.getDepositor());
-
         }
 
-        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(name);
-        List<BankDto> newBankAccounts = new ArrayList<>();
+        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(name.getDepositor());
+
         for (BankAccount bankAccount : byDepositor) {
             BankDto bankDto = new BankDto();
 
@@ -94,11 +98,26 @@ public class BankAccountService {
             bankDto.setDepositAmount(bankAccount.getDepositAmount());
             bankDto.setTotalAmount(bankAccount.getTotalAmount());
             bankDto.setWithdrawalAmount(bankAccount.getWithdrawalAmount());
-            newBankAccounts.add(bankDto);
+            newBankDtos.add(bankDto);
         }
-        System.out.println(newBankAccounts.toString());
+        System.out.println(newBankDtos.toString());
 
 
+        return newBankDtos;
+    }
+
+    private List<BankDto> findAll(List<BankDto> newBankAccounts) {
+        List<BankAccount> all = bankAccountRepository.findAll();
+
+        for (BankAccount bankAccount : all) {
+            newBankAccounts.add(BankDto.builder()
+                    .depositor(bankAccount.getDepositor())
+                    .tradingDate(bankAccount.getTradingDate())
+                    .depositAmount(bankAccount.getDepositAmount())
+                    .withdrawalAmount(bankAccount.getWithdrawalAmount())
+                    .totalAmount(bankAccount.getTotalAmount())
+                    .build());
+        }
         return newBankAccounts;
     }
 }

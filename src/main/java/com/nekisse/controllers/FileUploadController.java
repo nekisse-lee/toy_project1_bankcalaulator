@@ -6,7 +6,6 @@ import com.nekisse.service.BankAccountService;
 import com.nekisse.service.FileUploadDownloadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,24 +15,23 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class FileUploadController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
-    private final FileUploadDownloadService service;
+    private final FileUploadDownloadService downloadService;
 
-    public FileUploadController(FileUploadDownloadService service, BankAccountService bankAccountService) {
-        this.service = service;
+    private final BankAccountService bankAccountService;
+
+    public FileUploadController(FileUploadDownloadService downloadService, BankAccountService bankAccountService) {
+        this.downloadService = downloadService;
         this.bankAccountService = bankAccountService;
     }
 
-    private final BankAccountService bankAccountService;
 
 //    @GetMapping("/")
 //    public String controllerMain() {
@@ -41,23 +39,55 @@ public class FileUploadController {
 //    }
 
     @PostMapping("/uploadFile")
-    public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public @ResponseBody FileUploadResponse uploadFile(@RequestParam("file") @Valid MultipartFile file, HttpServletRequest request) {
+
         String rootPath = request.getSession().getServletContext().getRealPath("/");
         String attach_path = "/static/UPLOAD_FILES/";
         String filename11 = file.getOriginalFilename();
-        System.out.println("filename111 = " + rootPath + attach_path + filename11);
 
-        String fileName = service.storeFile(file);
+        if (filename11.equals("")) {
+            throw new IllegalArgumentException("파일 이름이 없습니다.");
+        }
+//        System.out.println("filename111 = " + rootPath + attach_path + filename11);
+
+        String fileName = downloadService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
-        System.out.println("fileName = " + fileName);
+        System.out.println("fileController fileName = " + fileName);
+
 //        bankAccountService.lll(filename11);
 
         return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
+
+    @PostMapping("/uploadFile2")
+    public FileUploadResponse uploadFile2(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        String rootPath = request.getSession().getServletContext().getRealPath("/");
+        System.out.println("rootPath = " + rootPath);
+        String attach_path = "uploads";
+        System.out.println("attach_path = " + attach_path);
+        String filename11 = file.getOriginalFilename();
+        System.out.println("filename11 = " + filename11);
+
+//        System.out.println("filename111 = " + rootPath + attach_path + filename11);
+
+        String fileName = downloadService.storeFile(file);
+
+        System.out.println("fileName = " + fileName);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+//        System.out.println("fileName = " + fileName);
+        return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+
+
+    }
+
 
 //    @PostMapping("/uploadMultipleFiles")
 //    public List<FileUploadResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files){
@@ -68,9 +98,9 @@ public class FileUploadController {
 //    }
 
     @GetMapping("/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
-        Resource resource = service.loadFileAsResource(fileName);
+        Resource resource = downloadService.loadFileAsResource(fileName);
 
         // Try to determine file's content type
         String contentType = null;
@@ -81,7 +111,7 @@ public class FileUploadController {
         }
 
         // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
+        if (contentType == null) {
             contentType = "application/octet-stream";
         }
 

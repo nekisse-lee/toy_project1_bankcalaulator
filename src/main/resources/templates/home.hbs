@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body data-file-name id="mainBody">
+
+<h1>Hello showsdfsdfjsdoijf</h1>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link" href="#">Link</a>-->
+            <!--            </li>-->
+            <!--            <li class="nav-item dropdown">-->
+            <!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+            <!--                    Dropdown-->
+            <!--                </a>-->
+            <!--                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+            <!--                    <a class="dropdown-item" href="#">Action</a>-->
+            <!--                    <a class="dropdown-item" href="#">Another action</a>-->
+            <!--                    <div class="dropdown-divider"></div>-->
+            <!--                    <a class="dropdown-item" href="#">Something else here</a>-->
+            <!--                </div>-->
+            <!--            </li>-->
+            <!--            <li class="nav-item">-->
+            <!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+            <!--            </li>-->
+        </ul>
+
+    </div>
+</nav>
+
+<form method="post" enctype="multipart/form-data" id="fileForm">
+    <div class="form-group">
+        <label for="exampleFormControlFile1">엑셀 파일 선택</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
+    </div>
+    <input type="button" class="btn btn-outline-success my-2 my-sm-0"  onclick="clickk()" id="sendFile" value="파일 보내기"/>
+</form>
+
+<form class="form-inline my-2 my-lg-0" action="/find" method="get">
+    <input class="form-control mr-sm-2" type="text" name="startDate" placeholder="시작일 ex) 1999-01-10"
+           aria-label="Search">
+    ~
+    <input class="form-control mr-sm-2" type="text" name="endDate" placeholder="종료일 ex) 1999-12-31"
+           aria-label="Search">
+    <input class="form-control mr-sm-2" type="text" name="depositor" placeholder="이름: ex) 홍길동"
+           aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+
+        <tr>
+            <th>거래날짜</th>
+            <th>입금자명</th>
+            <th>출금내역</th>
+            <th>입금내역</th>
+            <th>합계</th>
+        </tr>
+
+        </thead>
+        {{#depositors}}
+            <tbody>
+            <tr>
+                <td>{{this.tradingDate}}</td>
+                <td>{{this.depositor}}</td>
+                <td>{{this.withdrawalAmount}}</td>
+                <td>{{depositAmount}}</td>
+                <td>{{totalAmount}}</td>
+            </tr>
+            </tbody>
+        {{/depositors}}
+    </table>
+</div>
+
+
+<script src="/static/js/app.js"></script>
+<script src="/webjars/jquery/3.3.1/jquery.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
+<script src="/webjars/popper.js/1.14.7/popper.js"></script>
+
+
+</body>
+
+</html>
