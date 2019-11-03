@@ -1,4 +1,4 @@
-package com.nekisse.read;
+package com.nekisse.service.read;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
@@ -76,5 +76,9 @@ public class ExcelCellRef {
         return value;
     }
 
+    public static String test(Cell cell) {
+        cell.setCellType(Cell.CELL_TYPE_STRING);
+        return cell.getStringCellValue();
+    }
 }
 

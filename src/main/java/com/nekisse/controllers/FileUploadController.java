@@ -2,6 +2,7 @@ package com.nekisse.controllers;
 
 
 import com.nekisse.domain.dto.FileUploadResponse;
+import com.nekisse.exception.SendUserFileBadRequestException;
 import com.nekisse.service.BankAccountService;
 import com.nekisse.service.FileUploadDownloadService;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class FileUploadController {
         String filename11 = file.getOriginalFilename();
 
         if (filename11.equals("")) {
-            throw new IllegalArgumentException("파일 이름이 없습니다.");
+            throw new SendUserFileBadRequestException();
         }
 //        System.out.println("filename111 = " + rootPath + attach_path + filename11);
 
@@ -58,7 +59,7 @@ public class FileUploadController {
                 .toUriString();
         System.out.println("fileController fileName = " + fileName);
 
-//        bankAccountService.lll(filename11);
+        bankAccountService.excelFileReadAndSave(fileName);
 
         return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }

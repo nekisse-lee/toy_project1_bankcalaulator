@@ -1,6 +1,7 @@
 package com.nekisse.domain.dto;
 
 public class FindUserRequestDto {
+
     private String depositor;
 
     private String startDate;

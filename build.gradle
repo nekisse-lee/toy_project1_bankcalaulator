@@ -31,19 +31,17 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     compile('pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0')
-    
+
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    compile'org.springframework.boot:spring-boot-configuration-processor:2.1.8.RELEASE'
+    compile 'org.springframework.boot:spring-boot-configuration-processor:2.1.8.RELEASE'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
 
-
-    providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
 
     /*webjar*/
     compile 'org.webjars:bootstrap:4.3.1'
@@ -51,19 +49,17 @@ dependencies {
     compile 'org.webjars:popper.js:1.14.7'
 
 
-
-
 // excel 파일
-    compile group: 'org.apache.poi', name: 'poi', version: '3.11'
-    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.11'
-    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '3.11'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.13'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.13'
+    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '3.13'
+    compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.13'
 //    compile group: 'org.apache.poi', name: 'poi', version: '4.1.0'
 //    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
 //    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '4.1.0'
 //    compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '4.1.0'
-    compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
 
-
+//    compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.3'
 
 
 }

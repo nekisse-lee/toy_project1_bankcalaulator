@@ -1,4 +1,4 @@
-package com.nekisse.read;
+package com.nekisse.service.read;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,28 +17,28 @@ public class ExcelReadOption {
     /**
      * 추출을 시작할 행 번호
      */
-    private int startRow = 0;
+    private int startRow = 4;
 
     public String getFilePath() {
         return filePath;
     }
+
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-    public List<String> getOutputColumns() {
 
+    public List<String> getOutputColumns() {
         List<String> temp = new ArrayList<String>();
         temp.addAll(outputColumns);
-
         return temp;
     }
-    public void setOutputColumns(List<String> outputColumns) {
 
+    public void setOutputColumns(List<String> outputColumns) {
         List<String> temp = new ArrayList<String>();
         temp.addAll(outputColumns);
-
         this.outputColumns = temp;
     }
+
 
     public void setOutputColumns(String ... outputColumns) {
 

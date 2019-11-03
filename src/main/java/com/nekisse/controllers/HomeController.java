@@ -1,20 +1,17 @@
 package com.nekisse.controllers;
 
-import com.nekisse.domain.dto.BankDto;
 import com.nekisse.domain.dto.FindUserRequestDto;
 import com.nekisse.service.BankAccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
-public class Cont {
+public class HomeController {
 
-    final BankAccountService bankAccountService;
+    private final BankAccountService bankAccountService;
 
-    public Cont(BankAccountService bankAccountService) {
+    public HomeController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
     }
 
@@ -27,11 +24,10 @@ public class Cont {
 
 //    @GetMapping({"", "/find/{name}", "/find"})
     @GetMapping({""})
-    public String nome2(@PathVariable(required = false, name = "userName") FindUserRequestDto name, Model model, @RequestParam(name = "fileNamee",required = false) String fileNamee) {
-        System.out.println("reqqqq = " + fileNamee);
+    public String nome2(@PathVariable(required = false, name = "userName") FindUserRequestDto name, Model model, @RequestParam(name = "fileName",required = false) String fileName) {
+        System.out.println("reqqqq = " + fileName);
 
-//        bankAccountService.lll(filename11);
-        bankAccountService.excelFileReadAndSave();
+//        bankAccountService.excelFileReadAndSave(fileName);
         model.addAttribute("depositors", bankAccountService.findHistoryOfNameOfDepositor(name));
 //        System.out.println("members = " + members);
         return "home";
@@ -44,17 +40,6 @@ public class Cont {
     }
 
 
-/*
-    @GetMapping({"/find/{name}", "/find"})
-//    @RequestMapping({"/find/{name}","/find"})
-    public String findName(@PathVariable(required = false, name = "name") String name, Model model) {
-
-        model.addAttribute("depositors", bankAccountService.findHistoryOfNameOfDepositor(name));
-//        return bankAccountService.findHistoryOfNameOfDepositor(name).toString();
-        return "home";
-//        return String.valueOf(bankAccountService.findHistoryOfNameOfDepositor(name));
-    }
-*/
 @GetMapping({"/find"})
 //    @RequestMapping({"/find/{name}","/find"})
 public String findName( FindUserRequestDto name, Model model) {
@@ -63,6 +48,13 @@ public String findName( FindUserRequestDto name, Model model) {
 //        return bankAccountService.findHistoryOfNameOfDepositor(name).toString();
     return "home";
 //        return String.valueOf(bankAccountService.findHistoryOfNameOfDepositor(name));
+}
+
+
+@PostMapping("/deleteData")
+public String deleteData() {
+    bankAccountService.deleteAllData();
+    return "home";
 }
 
 }

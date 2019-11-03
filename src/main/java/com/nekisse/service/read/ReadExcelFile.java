@@ -1,7 +1,5 @@
-package com.nekisse.read;
+package com.nekisse.service.read;
 
-import com.nekisse.domain.Member;
-import com.nekisse.domain.dto.BankDto;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -12,7 +10,7 @@ import java.util.*;
 
 
 @Service
-public class LocalRead {
+public class ReadExcelFile {
 
     public static List<Map<String, String>> read(ExcelReadOption excelReadOption) {
         //엑셀 파일 자체
@@ -29,7 +27,7 @@ public class LocalRead {
         /**
          * sheet에서 유효한(데이터가 있는) 행의 개수를 가져온다.
          */
-        int numOfRows = sheet.getPhysicalNumberOfRows()-1;
+        int numOfRows = sheet.getPhysicalNumberOfRows() - 1;
         int numOfCells = 0;
 
         Row row = null;
@@ -53,12 +51,15 @@ public class LocalRead {
          * 각 Row만큼 반복을 한다.
          */
         ;
-        for (int rowIndex = excelReadOption.getStartRow() - 1; rowIndex < numOfRows; rowIndex++) {
+        for (int rowIndex = excelReadOption.getStartRow(); rowIndex < numOfRows; rowIndex++) {
             /*
              * 워크북에서 가져온 시트에서 rowIndex에 해당하는 Row를 가져온다.
              * 하나의 Row는 여러개의 Cell을 가진다.
              */
             row = sheet.getRow(rowIndex);
+
+//            Row row1 = checkDeleteRow(row, sheet);
+//            row= row1;
 
             if (row != null) {
                 /*
@@ -82,22 +83,23 @@ public class LocalRead {
                      * 이름의 예 : A,B,C,D,......
                      */
                     cellName = ExcelCellRef.getName(cell, cellIndex);
+                    System.out.println("cellName = " + cellName);
 //                    System.out.println("cellName + cell = " + cell + " : " + cellName);
                     /*
                      * 추출 대상 컬럼인지 확인한다
                      * 추출 대상 컬럼이 아니라면,
                      * for로 다시 올라간다
                      */
-                    if (!excelReadOption.getOutputColumns().contains(cellName)) {
-                        continue;
-                    }
+//                    if (!excelReadOption.getOutputColumns().contains(cellName)) {
+//                        continue;
+//                    }
 
                     /*
                      * map객체의 Cell의 이름을 키(Key)로 데이터를 담는다.
                      */
 
-//                    System.out.println("cellsdfsfsdfName = "  + cellName + ":"+ ExcelCellRef.getValue(cell, cellName));
-                    map.put(cellName, ExcelCellRef.getValue(cell, cellName));
+                    String value = ExcelCellRef.getValue(cell, cellName);
+                    map.put(cellName, value);
                 }
                 /*
                  * 만들어진 Map객체를 List로 넣는다.
@@ -105,14 +107,24 @@ public class LocalRead {
                 rowResult.add(map);
             }
         }
-//        System.out.println(rowResult.get(0));
-//        System.out.println(rowResult.get(1));
         System.out.println("rowResult = " + rowResult);
         return rowResult;
 
     }
 
+    private static Row checkDeleteRow(Row row, Sheet sheet) {
+        if (row != null) {
+            Cell cell = row.getCell(0);
+            cell.setCellType(Cell.CELL_TYPE_STRING);
+            if (!cell.getStringCellValue().equals("거래일시")) {
+                return null;
+            }
+        }
+        return row;
+    }
 
+
+/*
     public static void main(String[] args) {
 
 
@@ -153,6 +165,7 @@ public class LocalRead {
 
 
 
+*/
 /*
             for(Map<String, String> map : result) {
 
@@ -166,11 +179,9 @@ public class LocalRead {
                 }
 
             }
-*/
+*//*
+
 //            System.out.println("name = " + name);
     }
-
-
-
-
+*/
 }

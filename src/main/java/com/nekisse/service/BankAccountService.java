@@ -4,11 +4,13 @@ import com.nekisse.domain.BankAccount;
 import com.nekisse.domain.BankAccountRepository;
 import com.nekisse.domain.dto.BankDto;
 import com.nekisse.domain.dto.FindUserRequestDto;
-import com.nekisse.read.LocalRead;
-import com.nekisse.read.ExcelReadOption;
+import com.nekisse.service.read.ExcelReadOption;
+import com.nekisse.service.read.ReadExcelFile;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class BankAccountService {
@@ -18,8 +20,9 @@ public class BankAccountService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    public void excelFileReadAndSave() {
-        ExcelReadOption ro = new ExcelReadOption();
+    public void excelFileReadAndSave(String fileName) {
+
+        ExcelReadOption excelReadOption = new ExcelReadOption();
 //        ClassPathResource classPathResource = new ClassPathResource("/static/UPLOAD_FILES/KB_거래내역조회(459601-01-580016_20191020160628).xls");
 //        String path1 = classPathResource.getPath();
 //        Path path = Paths.get(path1);
@@ -27,18 +30,18 @@ public class BankAccountService {
 //        String s = path.toString();
 //        System.out.println("s = " + s);
 //        ro.setFilePath("/Users/nekisse/Documents/intellij_workspace/my_calculator/src/main/resources/static/UPLOAD_FILES/KB_거래내역조회(459601-01-580016_20191020160628).xls");
-        ro.setFilePath("uploads/KB_거래내역조회 10-28.xls");
-        ro.setOutputColumns("A", "C", "E", "F", "G");
+        excelReadOption.setFilePath("uploads/" + fileName);
+        excelReadOption.setOutputColumns("A", "C", "E", "F", "G");
 //        List<Member> members = new ArrayList<>();
 
-        List<Map<String, String>> result = LocalRead.read(ro);
+        List<Map<String, String>> result = ReadExcelFile.read(excelReadOption);
         for (int i = 1; i < result.size(); i++) {
 //            String beforeName = result.get(i).get("C");
             Map<String, String> row = result.get(i);
 //            for (String s : row.keySet()) {
 //                System.out.println("s = " + s);
 //            }
-            List<String> outputColumns = ro.getOutputColumns();
+            List<String> outputColumns = excelReadOption.getOutputColumns();
             BankDto bankDto = new BankDto();
             saveRepository(row, outputColumns, bankDto);
 //            members.add(new Member(beforeName));
@@ -92,7 +95,6 @@ public class BankAccountService {
 
         for (BankAccount bankAccount : byDepositor) {
             BankDto bankDto = new BankDto();
-
             bankDto.setTradingDate(bankAccount.getTradingDate());
             bankDto.setDepositor(bankAccount.getDepositor());
             bankDto.setDepositAmount(bankAccount.getDepositAmount());
@@ -119,5 +121,9 @@ public class BankAccountService {
                     .build());
         }
         return newBankAccounts;
+    }
+
+    public void deleteAllData() {
+        bankAccountRepository.deleteAll();
     }
 }
