@@ -4,6 +4,7 @@ import com.nekisse.domain.BankAccount;
 import com.nekisse.domain.BankAccountRepository;
 import com.nekisse.domain.dto.BankDto;
 import com.nekisse.domain.dto.FindUserRequestDto;
+import com.nekisse.domain.dto.responsedto.BankDataResponse;
 import com.nekisse.service.read.ExcelReadOption;
 import com.nekisse.service.read.ReadExcelFile;
 import org.springframework.stereotype.Service;
@@ -125,5 +126,38 @@ public class BankAccountService {
 
     public void deleteAllData() {
         bankAccountRepository.deleteAll();
+    }
+
+    public List<BankDto> findAll() {
+        List<BankDto> bankDtos = new ArrayList<>();
+
+        List<BankAccount> all = bankAccountRepository.findAll();
+        for (BankAccount bankAccount : all) {
+            bankDtos.add(BankDto.builder()
+                    .depositor(bankAccount.getDepositor())
+                    .tradingDate(bankAccount.getTradingDate())
+                    .depositAmount(bankAccount.getDepositAmount())
+                    .withdrawalAmount(bankAccount.getWithdrawalAmount())
+                    .totalAmount(bankAccount.getTotalAmount())
+                    .build());
+        }
+        return bankDtos;
+    }
+
+    public BankDataResponse getBankDataResponse() {
+        List<BankDto> bankDtos = new ArrayList<>();
+
+        List<BankAccount> all = bankAccountRepository.findAll();
+        for (BankAccount bankAccount : all) {
+            bankDtos.add(BankDto.builder()
+                    .depositor(bankAccount.getDepositor())
+                    .tradingDate(bankAccount.getTradingDate())
+                    .depositAmount(bankAccount.getDepositAmount())
+                    .withdrawalAmount(bankAccount.getWithdrawalAmount())
+                    .totalAmount(bankAccount.getTotalAmount())
+                    .build());
+        }
+        return new BankDataResponse(bankDtos);
+
     }
 }

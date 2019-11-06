@@ -1,4 +1,4 @@
-package com.nekisse.domain.dto;
+package com.nekisse.domain.dto.responsedto;
 
 public class FileUploadResponse {
     private String fileName;

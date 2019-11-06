@@ -1,3 +1,5 @@
+var tbodyy = $('#tbody');
+
 $('#sendFile').click(function () {
     let form = $('#fileForm')[0];
     let formData = new FormData(form);
@@ -21,9 +23,10 @@ $('#sendFile').click(function () {
             // $('#mainBody').attr("data-file-name", fileName);
             $('#mainBody').data("data-file-name", fileName);
             // console.log($('#mainBody').attr("data-file-name"));
-            reqFileName(fileName);
+            // reqFileName(fileName);
             // location.href = "/";
             // alert("hello");
+            // init();
         },
         error: function (response) {
             console.log('response', response);
@@ -96,3 +99,52 @@ $('#testBt').click(function () {
 
     })
 });
+
+
+var init = function() {
+    $.ajax({
+        url: '/api',
+        method: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log(response);
+            renderResultBox(response);
+            // renderSelectBoxOption(response);
+        },
+        error: function(response) {
+            alert(response.responseJSON.message);
+        }
+    });
+};
+
+let renderResultBox = function(data) {
+    console.log('renderresultbox =  ');
+    console.log(data);
+    let source = $('#result-template').html();
+    let template = Handlebars.compile(source);
+    let html = template(data);
+    // $('#tbody2').html(html);
+    console.log("-------------------");
+    console.log(data);
+    console.log("-------------------");
+    console.log(html);
+    // tbodyy.html('');
+    tbodyy.append(html);
+    console.log("renderResultBox 완료로그 ")
+};
+
+
+var renderSelectBoxOption = function(data) {
+    console.log("SelectBoxOption  : " + data);
+    var source = $('#result-template').html();
+    var template = Handlebars.compile(source);
+    var html = template(data);
+    tbodyy.html('');
+    // $('#tbody2').html(html);
+    $('#tbody').html(html);
+};
+
+// $(document).ready(function () {
+//     init();
+// });
+

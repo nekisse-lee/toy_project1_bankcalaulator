@@ -83,7 +83,7 @@ public class ReadExcelFile {
                      * 이름의 예 : A,B,C,D,......
                      */
                     cellName = ExcelCellRef.getName(cell, cellIndex);
-                    System.out.println("cellName = " + cellName);
+//                    System.out.println("cellName = " + cellName);
 //                    System.out.println("cellName + cell = " + cell + " : " + cellName);
                     /*
                      * 추출 대상 컬럼인지 확인한다

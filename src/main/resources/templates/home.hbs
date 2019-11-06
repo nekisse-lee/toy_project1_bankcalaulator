@@ -52,8 +52,8 @@
         <label for="exampleFormControlFile1">엑셀 파일 선택</label>
         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
     </div>
-<!--    <input type="button" class="btn btn-outline-success my-2 my-sm-0" onclick="sendFile()" id="sendFile"-->
-<!--           value="파일 보내기"/>-->
+    <!--    <input type="button" class="btn btn-outline-success my-2 my-sm-0" onclick="sendFile()" id="sendFile"-->
+    <!--           value="파일 보내기"/>-->
     <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="sendFile">파일보내기</button>
 </form>
 
@@ -79,6 +79,7 @@
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 </form>
 
+
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -103,13 +104,29 @@
             </tr>
             </tbody>
         {{/depositors}}
+
+        <tbody id="tbody">
+
+        </tbody>
     </table>
 </div>
 
+<script id="result-template" type="text/x-handlebars-template">
+    \{{#each bankDtoList}}
+        <tr>
+            <td>\{{this.tradingDate}}</td>
+            <td>\{{this.depositor}}</td>
+            <td>\{{this.withdrawalAmount}}</td>
+            <td>\{{this.depositAmount}}</td>
+            <td>\{{this.totalAmount}}</td>
+        </tr>
+    \{{/each}}
+</script>
 
 <script src="/webjars/jquery/3.3.1/jquery.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
 <script src="/webjars/popper.js/1.14.7/popper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.5/handlebars.js"></script>
 <script src="/static/js/app.js"></script>
 
 

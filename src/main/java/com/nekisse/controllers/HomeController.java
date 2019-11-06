@@ -26,9 +26,8 @@ public class HomeController {
     @GetMapping({""})
     public String nome2(@PathVariable(required = false, name = "userName") FindUserRequestDto name, Model model, @RequestParam(name = "fileName",required = false) String fileName) {
         System.out.println("reqqqq = " + fileName);
-
 //        bankAccountService.excelFileReadAndSave(fileName);
-        model.addAttribute("depositors", bankAccountService.findHistoryOfNameOfDepositor(name));
+//        model.addAttribute("depositors", bankAccountService.findHistoryOfNameOfDepositor(name));
 //        System.out.println("members = " + members);
         return "home";
     }

@@ -1,7 +1,7 @@
 package com.nekisse.controllers;
 
 
-import com.nekisse.domain.dto.FileUploadResponse;
+import com.nekisse.domain.dto.responsedto.FileUploadResponse;
 import com.nekisse.exception.SendUserFileBadRequestException;
 import com.nekisse.service.BankAccountService;
 import com.nekisse.service.FileUploadDownloadService;
