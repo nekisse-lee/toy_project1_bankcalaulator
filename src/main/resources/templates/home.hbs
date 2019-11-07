@@ -8,7 +8,7 @@
     <title>Title</title>
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
 </head>
-<body data-file-name id="mainBody">
+<body data-filename id="mainBody">
 
 <h1>Hello showsdfsdfjsdoijf</h1>
 
@@ -68,16 +68,18 @@
 
 
 <form class="form-inline my-2 my-lg-0" action="/find" method="get">
-    <input class="form-control mr-sm-2" type="text" name="startDate" placeholder="시작일 ex) 1999-01-10"
+    <input class="form-control mr-sm-2" type="text" name="startDate" id="startDate" placeholder="시작일 ex) 1999-01-10"
            aria-label="Search">
     ~
-    <input class="form-control mr-sm-2" type="text" name="endDate" placeholder="종료일 ex) 1999-12-31"
+    <input class="form-control mr-sm-2" type="text" name="endDate" id="endDate" placeholder="종료일 ex) 1999-12-31"
            aria-label="Search">
-    <input class="form-control mr-sm-2" type="text" name="depositor" placeholder="이름: ex) 홍길동"
+    <input class="form-control mr-sm-2" type="text" name="depositor" id="depositor" placeholder="이름: ex) 홍길동"
            aria-label="Search">
 
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+<!--    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">서버검색</button>-->
 </form>
+
+<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindUser"> ajax 유저검색 && 전체검색</button>
 
 
 <div class="table-responsive">
@@ -127,7 +129,8 @@
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
 <script src="/webjars/popper.js/1.14.7/popper.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.5/handlebars.js"></script>
-<script src="/static/js/app.js"></script>
+<!--<script src="/static/js/app.js"></script>-->
+<script src="/static/js/apiapp.js"></script>
 
 
 </body>

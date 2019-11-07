@@ -1,5 +1,6 @@
 package com.nekisse.service;
 
+import com.nekisse.controllers.advicecontroller.response.ErrorResponse;
 import com.nekisse.domain.BankAccount;
 import com.nekisse.domain.BankAccountRepository;
 import com.nekisse.domain.dto.BankDto;
@@ -91,7 +92,7 @@ public class BankAccountService {
         for (BankAccount bankAccount : all) {
             System.out.println(bankAccount.getDepositor());
         }
-
+        System.out.println("name.getDepositor() = " + name.getDepositor());
         List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(name.getDepositor());
 
         for (BankAccount bankAccount : byDepositor) {
@@ -144,7 +145,7 @@ public class BankAccountService {
         return bankDtos;
     }
 
-    public BankDataResponse getBankDataResponse() {
+    public BankDataResponse getAllDepositorDataResponse() {
         List<BankDto> bankDtos = new ArrayList<>();
 
         List<BankAccount> all = bankAccountRepository.findAll();
@@ -159,5 +160,26 @@ public class BankAccountService {
         }
         return new BankDataResponse(bankDtos);
 
+    }
+
+    public BankDataResponse getDataListOfOneDepositor(FindUserRequestDto name) {
+
+        List<BankDto> dtoList = new ArrayList<>();
+        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(name.getDepositor());
+
+        for (BankAccount bankAccount : byDepositor) {
+
+
+
+            dtoList.add(new BankDto(
+                    bankAccount.getTradingDate(),
+                    bankAccount.getDepositor(),
+                    bankAccount.getWithdrawalAmount(),
+                    bankAccount.getDepositAmount(),
+                    bankAccount.getTotalAmount()));
+        }
+
+
+        return new BankDataResponse(dtoList);
     }
 }

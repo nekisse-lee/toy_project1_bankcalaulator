@@ -6,7 +6,7 @@ import java.util.List;
 
 public class BankDataResponse {
 
-    List<BankDto> bankDtoList;
+    private List<BankDto> bankDtoList;
 
     public BankDataResponse(List<BankDto> bankDtoList) {
         this.bankDtoList = bankDtoList;

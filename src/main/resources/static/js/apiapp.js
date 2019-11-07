@@ -1,6 +1,7 @@
 var tbodyy = $('#tbody');
 
 $('#sendFile').click(function () {
+    deleteData();
     let form = $('#fileForm')[0];
     let formData = new FormData(form);
 
@@ -20,8 +21,12 @@ $('#sendFile').click(function () {
             // let mainBody = $('mainBody');
             // elementById.dataset.code(fileName);
             let fileName = response.fileName.toString();
-            // $('#mainBody').attr("data-file-name", fileName);
-            $('#mainBody').data("data-file-name", fileName);
+            console.log(fileName);
+
+            // $('#mainBody').attr("data-filename", fileName);
+            $('#mainBody').data("data-filename", fileName);
+
+            console.log("데이터 저장 " +  $('#mainBody').data("data-filename").toString());
             // console.log($('#mainBody').attr("data-file-name"));
             // reqFileName(fileName);
             // location.href = "/";
@@ -73,7 +78,7 @@ function deleteTbody() {
 function deleteData() {
     $.ajax({
         url: '/api/deleteData',
-        type: "POST",
+        type: "delete",
         success: function(response) {
             alert("데이터가 삭제 되었습니다.");
             deleteTbody();
@@ -140,15 +145,28 @@ let renderResultBox = function(data) {
 };
 
 
-var renderSelectBoxOption = function(data) {
-    console.log("SelectBoxOption  : " + data);
-    var source = $('#result-template').html();
-    var template = Handlebars.compile(source);
-    var html = template(data);
-    tbodyy.html('');
-    // $('#tbody2').html(html);
-    $('#tbody').html(html);
-};
+$('#btFindUser').click(function () {
+    let depositor = $('#depositor').val();
+    let startDate = $('#startDate').val();
+    let endDate = $('#endDate').val();
+
+    $.ajax({
+        url: '/api/find',
+        type: "GET",
+        data: {'startDate': JSON.stringify(startDate),'endDate': JSON.stringify(endDate),'depositor': depositor},
+        success: function (response) {
+            deleteTbody();
+            renderResultBox(response);
+        },
+        error: function (response) {
+            console.log('response', response);
+            alert(response.responseJSON.message);
+        }
+    })
+});
+
+
+
 
 // $(document).ready(function () {
 //     init();
