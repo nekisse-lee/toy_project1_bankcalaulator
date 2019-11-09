@@ -5,6 +5,8 @@ import com.nekisse.domain.dto.responsedto.BankDataResponse;
 import com.nekisse.service.BankAccountService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 public class ApiController {
@@ -21,7 +23,7 @@ public class ApiController {
     }
 
     @GetMapping({"/find"})
-    public BankDataResponse findOneDepositor(FindUserRequestDto name) {
+    public BankDataResponse findOneDepositor(@Valid FindUserRequestDto name) {
         return bankAccountService.getDataListOfOneDepositor(name);
     }
 

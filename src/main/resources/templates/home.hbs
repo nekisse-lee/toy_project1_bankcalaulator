@@ -68,10 +68,10 @@
 
 
 <form class="form-inline my-2 my-lg-0" action="/find" method="get">
-    <input class="form-control mr-sm-2" type="text" name="startDate" id="startDate" placeholder="시작일 ex) 1999-01-10"
+    <input class="form-control mr-sm-2" type="text" name="startDate" id="startDate" placeholder="시작월 ex) 1999-01"
            aria-label="Search">
     ~
-    <input class="form-control mr-sm-2" type="text" name="endDate" id="endDate" placeholder="종료일 ex) 1999-12-31"
+    <input class="form-control mr-sm-2" type="text" name="endDate" id="endDate" placeholder="종료월 ex) 1999-12"
            aria-label="Search">
     <input class="form-control mr-sm-2" type="text" name="depositor" id="depositor" placeholder="이름: ex) 홍길동"
            aria-label="Search">
@@ -79,7 +79,8 @@
 <!--    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">서버검색</button>-->
 </form>
 
-<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindUser"> ajax 유저검색 && 전체검색</button>
+<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindUser"> ajax 유저검색</button>
+<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindAll"> ajax  전체검색</button>
 
 
 <div class="table-responsive">

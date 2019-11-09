@@ -149,12 +149,37 @@ $('#btFindUser').click(function () {
     let depositor = $('#depositor').val();
     let startDate = $('#startDate').val();
     let endDate = $('#endDate').val();
+    console.log(depositor + "+" + startDate + "+" + endDate);
 
     $.ajax({
         url: '/api/find',
         type: "GET",
-        data: {'startDate': JSON.stringify(startDate),'endDate': JSON.stringify(endDate),'depositor': depositor},
+        data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
         success: function (response) {
+
+            deleteTbody();
+            renderResultBox(response);
+        },
+        error: function (response) {
+            console.log('response', response);
+            alert(response.responseJSON.message);
+        }
+    })
+});
+
+
+$('#btFindAll').click(function () {
+    let depositor = $('#depositor').val();
+    let startDate = $('#startDate').val();
+    let endDate = $('#endDate').val();
+    console.log(depositor + "+" + startDate + "+" + endDate);
+
+    $.ajax({
+        url: '/api',
+        type: "GET",
+        data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
+        success: function (response) {
+
             deleteTbody();
             renderResultBox(response);
         },

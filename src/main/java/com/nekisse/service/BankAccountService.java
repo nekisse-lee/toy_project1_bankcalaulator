@@ -1,6 +1,5 @@
 package com.nekisse.service;
 
-import com.nekisse.controllers.advicecontroller.response.ErrorResponse;
 import com.nekisse.domain.BankAccount;
 import com.nekisse.domain.BankAccountRepository;
 import com.nekisse.domain.dto.BankDto;
@@ -10,6 +9,7 @@ import com.nekisse.service.read.ExcelReadOption;
 import com.nekisse.service.read.ReadExcelFile;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -162,14 +162,14 @@ public class BankAccountService {
 
     }
 
-    public BankDataResponse getDataListOfOneDepositor(FindUserRequestDto name) {
+    public BankDataResponse getDataListOfOneDepositor(FindUserRequestDto requestDto) {
 
         List<BankDto> dtoList = new ArrayList<>();
-        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(name.getDepositor());
+        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(requestDto.getDepositor());
+        int totalAmount = 0;
 
         for (BankAccount bankAccount : byDepositor) {
-
-
+            totalAmount += Integer.parseInt(bankAccount.getDepositAmount());
 
             dtoList.add(new BankDto(
                     bankAccount.getTradingDate(),
@@ -177,9 +177,40 @@ public class BankAccountService {
                     bankAccount.getWithdrawalAmount(),
                     bankAccount.getDepositAmount(),
                     bankAccount.getTotalAmount()));
+
+            System.out.println("totalAmount!!!!!!!!!!!!t = " + totalAmount);
         }
 
+        System.out.println("name.getDepositor() = " + requestDto.getDepositor());
+        System.out.println("name.getStartDate() = " + requestDto.getStartDate());
+        System.out.println("name.getEndDate() = " + requestDto.getEndDate());
 
-        return new BankDataResponse(dtoList);
+        LocalDate startDate = LocalDate.parse(requestDto.getStartDate() + "-01");
+        LocalDate endDate = LocalDate.parse(requestDto.getEndDate() + "-01");
+        startDate = startDate.withDayOfMonth(1);
+        endDate = endDate.withDayOfMonth(endDate.getMonth().maxLength() - 1);
+
+        System.out.println("startDate = " + startDate);
+        System.out.println("endDate = " + endDate);
+
+//        long between = MONTHS.between(startDate, endDate);
+//        System.out.println("between = " + between);
+
+        int differenceInTheMonth = (endDate.getYear() - startDate.getYear()) * 12 + (endDate.getMonthValue() - startDate.getMonthValue() + 1);
+        System.out.println("month차이 = " + differenceInTheMonth);
+
+
+        int targetAmount = differenceInTheMonth * 10000;
+
+        int penalty = 0;
+
+        System.out.println("targetAmount = " + targetAmount);
+
+//        if (totalAmount <= targetAmount) {
+            String cal = Calculator.Cal(dtoList, totalAmount, startDate, endDate, differenceInTheMonth, requestDto);
+//        }
+
+        return new BankDataResponse(dtoList, totalAmount);
     }
+
 }
