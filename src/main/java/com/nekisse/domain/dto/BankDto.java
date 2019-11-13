@@ -11,11 +11,11 @@ public class BankDto {
 
     private String withdrawalAmount;
 
-    private String depositAmount;
+    private Integer depositAmount;
 
     private String totalAmount;
 
-    public BankDto(String tradingDate, String depositor, String withdrawalAmount, String depositAmount, String totalAmount) {
+    public BankDto(String tradingDate, String depositor, String withdrawalAmount, Integer depositAmount, String totalAmount) {
         this.tradingDate = tradingDate;
         this.depositor = depositor;
         this.withdrawalAmount = withdrawalAmount;
@@ -50,11 +50,11 @@ public class BankDto {
         this.withdrawalAmount = withdrawalAmount;
     }
 
-    public String getDepositAmount() {
+    public Integer getDepositAmount() {
         return depositAmount;
     }
 
-    public void setDepositAmount(String depositAmount) {
+    public void setDepositAmount(Integer depositAmount) {
         this.depositAmount = depositAmount;
     }
 
@@ -74,6 +74,6 @@ public class BankDto {
                 ", withdrawalAmount='" + withdrawalAmount + '\'' +
                 ", depositAmount='" + depositAmount + '\'' +
                 ", totalAmount='" + totalAmount + '\'' +
-                '}';
+                '}' + "\n";
     }
 }

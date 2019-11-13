@@ -2,6 +2,7 @@ var tbodyy = $('#tbody');
 
 $('#sendFile').click(function () {
     deleteData();
+    $('.nekisse').removeClass("fade").addClass("show");
     let form = $('#fileForm')[0];
     let formData = new FormData(form);
 
@@ -24,14 +25,14 @@ $('#sendFile').click(function () {
             console.log(fileName);
 
             // $('#mainBody').attr("data-filename", fileName);
-            $('#mainBody').data("data-filename", fileName);
+            $('#mainBody').data("filename", fileName);
 
-            console.log("데이터 저장 " +  $('#mainBody').data("data-filename").toString());
+            console.log("데이터 저장 " +  $('#mainBody').data("filename").toString());
             // console.log($('#mainBody').attr("data-file-name"));
             // reqFileName(fileName);
             // location.href = "/";
             // alert("hello");
-            init();
+            renderTemplate();
         },
         error: function (response) {
             console.log('response', response);
@@ -73,14 +74,18 @@ function reqFileName(fileName) {
 
 function deleteTbody() {
     $('#tbody').empty();
+    $('#calValue').empty();
 }
 
 function deleteData() {
+    let fileName = $('#mainBody').data("filename");
+    console.log("fileName =      " + fileName);
     $.ajax({
         url: '/api/deleteData',
         type: "delete",
+        data: {'fileName': fileName},
         success: function(response) {
-            alert("데이터가 삭제 되었습니다.");
+            alert("기존 데이터가 삭제 되었습니다.");
             deleteTbody();
             // window.location.reload();
         },
@@ -93,26 +98,13 @@ function deleteData() {
     });
 }
 
-$('#testBt').click(function () {
-    $.ajax({
-        url: '/deleteData',
-        type: "POST",
-        success: function(response) {
-            alert("데이터가 삭제 되었습니다.");
-            // window.location.reload();
-            init();
-        },
-        error: function(response) {
-            console.log('response', response);
-
-            alert(response.responseJSON.message);
-        }
-
-    })
+$('#btDeleteData').click(function () {
+    $('.nekisse').removeClass("show").addClass("fade");
+    deleteData();
 });
 
 
-var init = function() {
+var renderTemplate = function() {
     $.ajax({
         url: '/api',
         method: 'GET',
@@ -120,6 +112,9 @@ var init = function() {
         success: function(response) {
             console.log(response);
             renderResultBox(response);
+            renderResultBox2(response);
+
+            console.log("=================" + response.calValue);
             // renderSelectBoxOption(response);
         },
         error: function(response) {
@@ -128,24 +123,36 @@ var init = function() {
     });
 };
 
+
+
+let renderResultBox2 = function (calValue) {
+    let source = $('#result-string').html();
+    let template = Handlebars.compile(source);
+    let html = template(calValue);
+    // $('#tbody2').html(html);
+    console.log(calValue.calValue);
+    console.log(html);
+    // tbodyy.html('');
+    $('#calValue').append(html);
+    console.log("renderResultBox222 완료로그 ")
+};
+
 let renderResultBox = function(data) {
-    console.log('renderresultbox =  ');
-    console.log(data);
     let source = $('#result-template').html();
     let template = Handlebars.compile(source);
     let html = template(data);
     // $('#tbody2').html(html);
-    console.log("-------------------");
+    console.log('renderresultbox =  ');
     console.log(data);
     console.log("-------------------");
-    console.log(html);
+    // console.log(html);
     // tbodyy.html('');
     tbodyy.append(html);
     console.log("renderResultBox 완료로그 ")
 };
 
 
-$('#btFindUser').click(function () {
+$('#btCalFindUser').click(function () {
     let depositor = $('#depositor').val();
     let startDate = $('#startDate').val();
     let endDate = $('#endDate').val();
@@ -157,6 +164,25 @@ $('#btFindUser').click(function () {
         data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
         success: function (response) {
 
+            deleteTbody();
+            renderResultBox(response);
+            renderResultBox2(response);
+        },
+        error: function (response) {
+            console.log('response', response);
+            alert(response.responseJSON.message);
+        }
+    })
+});
+
+$('#btFindUser').click(function () {
+    let depositor = $('#depositor').val();
+
+    $.ajax({
+        url: '/api/findDepositor',
+        type: "GET",
+        data: {'depositor': depositor},
+        success: function (response) {
             deleteTbody();
             renderResultBox(response);
         },
@@ -179,7 +205,6 @@ $('#btFindAll').click(function () {
         type: "GET",
         data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
         success: function (response) {
-
             deleteTbody();
             renderResultBox(response);
         },

@@ -19,14 +19,14 @@ public class BankAccount {
 
     private String withdrawalAmount;
 
-    private String depositAmount;
+    private Integer depositAmount;
 
     private String totalAmount;
 
     public BankAccount() {
     }
 
-    public BankAccount(String tradingDate, String depositor, String withdrawalAmount, String depositAmount, String totalAmount) {
+    public BankAccount(String tradingDate, String depositor, String withdrawalAmount, Integer depositAmount, String totalAmount) {
         this.tradingDate = tradingDate;
         this.depositor = depositor;
         this.withdrawalAmount = withdrawalAmount;
@@ -66,11 +66,11 @@ public class BankAccount {
         this.withdrawalAmount = withdrawalAmount;
     }
 
-    public String getDepositAmount() {
+    public Integer getDepositAmount() {
         return depositAmount;
     }
 
-    public void setDepositAmount(String depositAmount) {
+    public void setDepositAmount(Integer depositAmount) {
         this.depositAmount = depositAmount;
     }
 

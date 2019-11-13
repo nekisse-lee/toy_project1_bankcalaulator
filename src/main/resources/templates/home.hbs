@@ -8,12 +8,12 @@
     <title>Title</title>
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
 </head>
-<body data-filename id="mainBody">
+<body id="mainBody">
 
-<h1>Hello showsdfsdfjsdoijf</h1>
+<h1>국민은행 .xls 파일만 가능</h1>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,27 +25,27 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <!--            <li class="nav-item">-->
-            <!--                <a class="nav-link" href="#">Link</a>-->
-            <!--            </li>-->
-            <!--            <li class="nav-item dropdown">-->
-            <!--                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-            <!--                    Dropdown-->
-            <!--                </a>-->
-            <!--                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-            <!--                    <a class="dropdown-item" href="#">Action</a>-->
-            <!--                    <a class="dropdown-item" href="#">Another action</a>-->
-            <!--                    <div class="dropdown-divider"></div>-->
-            <!--                    <a class="dropdown-item" href="#">Something else here</a>-->
-            <!--                </div>-->
-            <!--            </li>-->
-            <!--            <li class="nav-item">-->
-            <!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-            <!--            </li>-->
+            &lt;!&ndash;            <li class="nav-item">&ndash;&gt;
+            &lt;!&ndash;                <a class="nav-link" href="#">Link</a>&ndash;&gt;
+            &lt;!&ndash;            </li>&ndash;&gt;
+            &lt;!&ndash;            <li class="nav-item dropdown">&ndash;&gt;
+            &lt;!&ndash;                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">&ndash;&gt;
+            &lt;!&ndash;                    Dropdown&ndash;&gt;
+            &lt;!&ndash;                </a>&ndash;&gt;
+            &lt;!&ndash;                <div class="dropdown-menu" aria-labelledby="navbarDropdown">&ndash;&gt;
+            &lt;!&ndash;                    <a class="dropdown-item" href="#">Action</a>&ndash;&gt;
+            &lt;!&ndash;                    <a class="dropdown-item" href="#">Another action</a>&ndash;&gt;
+            &lt;!&ndash;                    <div class="dropdown-divider"></div>&ndash;&gt;
+            &lt;!&ndash;                    <a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;
+            &lt;!&ndash;                </div>&ndash;&gt;
+            &lt;!&ndash;            </li>&ndash;&gt;
+            &lt;!&ndash;            <li class="nav-item">&ndash;&gt;
+            &lt;!&ndash;                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>&ndash;&gt;
+            &lt;!&ndash;            </li>&ndash;&gt;
         </ul>
 
     </div>
-</nav>
+</nav>-->
 
 <form method="post" enctype="multipart/form-data" id="fileForm">
     <div class="form-group">
@@ -57,72 +57,83 @@
     <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="sendFile">파일보내기</button>
 </form>
 
+<div class="nekisse fade">
+    <!--    <form method="post" id="deleteData">-->
+    <!--        <input type="button" class="btn btn-outline-success my-2 my-sm-0" onclick="deleteData()" id="deleteButton"-->
+    <!--               value="데이터 삭제"/>-->
+    <!--    </form>-->
 
-<form method="post" id="deleteData">
-    <input type="button" class="btn btn-outline-success my-2 my-sm-0" onclick="deleteData()" id="deleteButton"
-           value="데이터 삭제"/>
-</form>
-
-<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="testBt">테스트버튼!! 데이터 삭제 type button</button>
-<button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="testBt">테스트버튼!! 데이터 삭제 type submit</button>
-
-
-<form class="form-inline my-2 my-lg-0" action="/find" method="get">
-    <input class="form-control mr-sm-2" type="text" name="startDate" id="startDate" placeholder="시작월 ex) 1999-01"
-           aria-label="Search">
-    ~
-    <input class="form-control mr-sm-2" type="text" name="endDate" id="endDate" placeholder="종료월 ex) 1999-12"
-           aria-label="Search">
-    <input class="form-control mr-sm-2" type="text" name="depositor" id="depositor" placeholder="이름: ex) 홍길동"
-           aria-label="Search">
-
-<!--    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">서버검색</button>-->
-</form>
-
-<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindUser"> ajax 유저검색</button>
-<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindAll"> ajax  전체검색</button>
+    <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btDeleteData">테스트버튼!! 데이터 삭제 type button
+    </button>
+    <!--<button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="testBt">테스트버튼!! 데이터 삭제 type submit</button>-->
 
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
+    <form class="form-inline my-2 my-lg-0" action="/find" method="get">
+        <input class="form-control mr-sm-2" type="text" name="startDate" id="startDate" placeholder="시작월 ex) 1999-01"
+               aria-label="Search">
+        ~
+        <input class="form-control mr-sm-2" type="text" name="endDate" id="endDate" placeholder="종료월 ex) 1999-12"
+               aria-label="Search">
+        <input class="form-control mr-sm-2" type="text" name="depositor" id="depositor" placeholder="이름: ex) 홍길동"
+               aria-label="Search">
 
-        <tr>
-            <th>거래날짜</th>
-            <th>입금자명</th>
-            <th>출금내역</th>
-            <th>입금내역</th>
-            <th>합계</th>
-        </tr>
+        <!--    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">서버검색</button>-->
+    </form>
 
-        </thead>
-        {{#depositors}}
-            <tbody>
+    <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btCalFindUser"> ajax 유저계산 검색</button>
+    <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindUser"> ajax 유저일반 검색</button>
+    <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="btFindAll"> ajax 전체검색</button>
+
+
+    <h1 id="calValue"></h1>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{this.tradingDate}}</td>
-                <td>{{this.depositor}}</td>
-                <td>{{this.withdrawalAmount}}</td>
-                <td>{{depositAmount}}</td>
-                <td>{{totalAmount}}</td>
+                <th>거래날짜</th>
+                <th>입금자명</th>
+                <th>출금내역</th>
+                <th>입금내역</th>
+                <th>합계</th>
             </tr>
+
+            </thead>
+            {{#depositors}}
+                <tbody>
+                <tr>
+                    <td>{{this.tradingDate}}</td>
+                    <td>{{this.depositor}}</td>
+                    <td>{{this.withdrawalAmount}}</td>
+                    <td>{{depositAmount}}</td>
+                    <td>{{totalAmount}}</td>
+                </tr>
+                </tbody>
+            {{/depositors}}
+
+            <tbody id="tbody">
+
             </tbody>
-        {{/depositors}}
+        </table>
+    </div>
 
-        <tbody id="tbody">
-
-        </tbody>
-    </table>
 </div>
+
+<script id="result-string" type="text/x-handlebars-template">
+
+    \{{calValue}}
+</script>
 
 <script id="result-template" type="text/x-handlebars-template">
     \{{#each bankDtoList}}
-        <tr>
-            <td>\{{this.tradingDate}}</td>
-            <td>\{{this.depositor}}</td>
-            <td>\{{this.withdrawalAmount}}</td>
-            <td>\{{this.depositAmount}}</td>
-            <td>\{{this.totalAmount}}</td>
-        </tr>
+    <tr>
+        <td>\{{this.tradingDate}}</td>
+        <td>\{{this.depositor}}</td>
+        <td>\{{this.withdrawalAmount}}</td>
+        <td>\{{this.depositAmount}}</td>
+        <td>\{{this.totalAmount}}</td>
+    </tr>
     \{{/each}}
 </script>
 

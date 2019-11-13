@@ -50,7 +50,6 @@ public class FileUploadController {
             throw new SendUserFileBadRequestException();
         }
 //        System.out.println("filename111 = " + rootPath + attach_path + filename11);
-
         String fileName = downloadService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()

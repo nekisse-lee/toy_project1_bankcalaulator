@@ -50,10 +50,10 @@ public String findName( FindUserRequestDto name, Model model) {
 }
 
 
-@PostMapping("/deleteData")
-public String deleteData() {
-    bankAccountService.deleteAllData();
-    return "home";
-}
+//@PostMapping("/deleteData")
+//public String deleteData() {
+//    bankAccountService.deleteAllData();
+//    return "home";
+//}
 
 }

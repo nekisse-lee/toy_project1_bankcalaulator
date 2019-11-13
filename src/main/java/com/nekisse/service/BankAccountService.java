@@ -65,7 +65,7 @@ public class BankAccountService {
                     bankDto.setWithdrawalAmount(row.get(outputColumn));
                     break;
                 case "F":
-                    bankDto.setDepositAmount(row.get(outputColumn));
+                    bankDto.setDepositAmount(Integer.parseInt(row.get(outputColumn)));
                     break;
                 case "G":
                     bankDto.setTotalAmount(row.get(outputColumn));
@@ -127,6 +127,7 @@ public class BankAccountService {
 
     public void deleteAllData() {
         bankAccountRepository.deleteAll();
+
     }
 
     public List<BankDto> findAll() {
@@ -164,39 +165,24 @@ public class BankAccountService {
 
     public BankDataResponse getDataListOfOneDepositor(FindUserRequestDto requestDto) {
 
-        List<BankDto> dtoList = new ArrayList<>();
-        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(requestDto.getDepositor());
-        int totalAmount = 0;
-
-        for (BankAccount bankAccount : byDepositor) {
-            totalAmount += Integer.parseInt(bankAccount.getDepositAmount());
-
-            dtoList.add(new BankDto(
-                    bankAccount.getTradingDate(),
-                    bankAccount.getDepositor(),
-                    bankAccount.getWithdrawalAmount(),
-                    bankAccount.getDepositAmount(),
-                    bankAccount.getTotalAmount()));
-
-            System.out.println("totalAmount!!!!!!!!!!!!t = " + totalAmount);
-        }
+        List<BankDto> dtoList = getBankDtoListOfDepositor(requestDto);
 
         System.out.println("name.getDepositor() = " + requestDto.getDepositor());
         System.out.println("name.getStartDate() = " + requestDto.getStartDate());
         System.out.println("name.getEndDate() = " + requestDto.getEndDate());
 
-        LocalDate startDate = LocalDate.parse(requestDto.getStartDate() + "-01");
-        LocalDate endDate = LocalDate.parse(requestDto.getEndDate() + "-01");
-        startDate = startDate.withDayOfMonth(1);
-        endDate = endDate.withDayOfMonth(endDate.getMonth().maxLength() - 1);
+//        LocalDate startDate = LocalDate.parse(requestDto.getStartDate() + "-01");
+//        LocalDate endDate = LocalDate.parse(requestDto.getEndDate() + "-01");
+//        startDate = startDate.withDayOfMonth(1);
+//        endDate = endDate.withDayOfMonth(endDate.getMonth().maxLength() - 1);
 
-        System.out.println("startDate = " + startDate);
-        System.out.println("endDate = " + endDate);
+//        System.out.println("startDate = " + startDate);
+//        System.out.println("endDate = " + endDate);
 
 //        long between = MONTHS.between(startDate, endDate);
 //        System.out.println("between = " + between);
 
-        int differenceInTheMonth = (endDate.getYear() - startDate.getYear()) * 12 + (endDate.getMonthValue() - startDate.getMonthValue() + 1);
+        int differenceInTheMonth = Calculator.getDifferenceInTheMonth(requestDto);
         System.out.println("month차이 = " + differenceInTheMonth);
 
 
@@ -207,10 +193,33 @@ public class BankAccountService {
         System.out.println("targetAmount = " + targetAmount);
 
 //        if (totalAmount <= targetAmount) {
-            String cal = Calculator.Cal(dtoList, totalAmount, startDate, endDate, differenceInTheMonth, requestDto);
+        String cal = Calculator.Cal(dtoList, differenceInTheMonth, requestDto);
 //        }
 
-        return new BankDataResponse(dtoList, totalAmount);
+        return new BankDataResponse(dtoList, cal);
+    }
+
+
+
+    public BankDataResponse getListOfOneDepositor(FindUserRequestDto requestDto) {
+        List<BankDto> dtoList = getBankDtoListOfDepositor(requestDto);
+        return new BankDataResponse(dtoList);
+    }
+
+    private List<BankDto> getBankDtoListOfDepositor(FindUserRequestDto requestDto) {
+        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(requestDto.getDepositor());
+        List<BankDto> dtoList = new ArrayList<>();
+        for (BankAccount bankAccount : byDepositor) {
+
+            dtoList.add(new BankDto(
+                    bankAccount.getTradingDate(),
+                    bankAccount.getDepositor(),
+                    bankAccount.getWithdrawalAmount(),
+                    bankAccount.getDepositAmount(),
+                    bankAccount.getTotalAmount()));
+
+        }
+        return dtoList;
     }
 
 }

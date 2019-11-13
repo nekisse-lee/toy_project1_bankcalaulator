@@ -3,8 +3,10 @@ package com.nekisse.controllers;
 import com.nekisse.domain.dto.FindUserRequestDto;
 import com.nekisse.domain.dto.responsedto.BankDataResponse;
 import com.nekisse.service.BankAccountService;
+import com.nekisse.service.FileUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -23,14 +25,21 @@ public class ApiController {
     }
 
     @GetMapping({"/find"})
-    public BankDataResponse findOneDepositor(@Valid FindUserRequestDto name) {
+    public BankDataResponse calculateOneDepositor(@Valid FindUserRequestDto name) {
         return bankAccountService.getDataListOfOneDepositor(name);
     }
 
-//    @PostMapping("/deleteData")
-    @DeleteMapping("/deleteData")
-    public void deleteData() {
+    @GetMapping({"/findDepositor"})
+    public BankDataResponse findBankListOfOneDepositor(FindUserRequestDto name) {
+        return bankAccountService.getListOfOneDepositor(name);
+    }
+
+    //    @PostMapping("/deleteData")
+    @DeleteMapping({"/deleteData/{fileName}","/deleteData"})
+    public void deleteData(@RequestParam(required = false) String fileName) {
+        System.out.println("fileNamezzzzzzzzzz = " + fileName);
         bankAccountService.deleteAllData();
+        FileUtils.deleteFile(fileName);
     }
 
 
