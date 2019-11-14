@@ -3,7 +3,6 @@ package com.nekisse.service;
 import com.nekisse.exception.FileDownloadException;
 import com.nekisse.exception.FileUploadException;
 import com.nekisse.property.FileUploadProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

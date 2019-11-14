@@ -13,6 +13,12 @@ public class FileUploadResponse {
         this.size = size;
     }
 
+    public FileUploadResponse(String fileName, String fileType, long size) {
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.size = size;
+    }
+
     public String getFileName() {
         return fileName;
     }

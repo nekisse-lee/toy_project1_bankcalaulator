@@ -63,6 +63,35 @@ public class FileUploadController {
         return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
     }
 
+
+    @PostMapping("/uploadFile3")
+    public @ResponseBody FileUploadResponse uploadFile3(@RequestParam("file") @Valid MultipartFile file, HttpServletRequest request) {
+
+        String rootPath = request.getSession().getServletContext().getRealPath("/");
+        String attach_path = "/static/UPLOAD_FILES/";
+        String filename11 = file.getOriginalFilename();
+
+        if (filename11.equals("")) {
+            throw new SendUserFileBadRequestException();
+        }
+//        System.out.println("filename111 = " + rootPath + attach_path + filename11);
+        String fileName = downloadService.storeFile(file);
+
+
+
+        bankAccountService.excelFileReadAndSave(fileName);
+
+        return new FileUploadResponse(fileName, file.getContentType(), file.getSize());
+    }
+
+
+
+
+
+
+
+
+
     @PostMapping("/uploadFile2")
     public FileUploadResponse uploadFile2(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         String rootPath = request.getSession().getServletContext().getRealPath("/");
