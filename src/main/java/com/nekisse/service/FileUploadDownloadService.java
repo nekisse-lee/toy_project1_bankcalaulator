@@ -9,11 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
+import static java.nio.charset.StandardCharsets.*;
 
 @Service
 public class FileUploadDownloadService {
@@ -32,8 +36,9 @@ public class FileUploadDownloadService {
         }
     }
 
-    public String storeFile(MultipartFile file) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public String storeFile(MultipartFile file) throws UnsupportedEncodingException {
+
+        String fileName = StringUtils.cleanPath(new String(file.getOriginalFilename().getBytes("8859_1"), UTF_8));
         System.out.println("fileName = " + fileName);
 
         try {
