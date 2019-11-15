@@ -2,7 +2,6 @@ plugins {
     id 'org.springframework.boot' version '2.2.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
-    id 'war'
 }
 
 group = 'com.nekisse'
@@ -33,7 +32,6 @@ dependencies {
     compile('pl.allegro.tech.boot:handlebars-spring-boot-starter:0.3.0')
 
     annotationProcessor 'org.projectlombok:lombok'
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
@@ -68,4 +66,12 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    enabled = true
+    manifest {
+        attributes 'Main-Class': 'package com.nekisse.CalculatorApplication'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
