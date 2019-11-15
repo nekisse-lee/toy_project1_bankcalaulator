@@ -13,7 +13,6 @@ public class FileUtils {
     public static void deleteFile(String fileName) {
 
         System.out.println("FileName = " + fileName);
-
         System.out.println("fileUploadProperties.getUploadDir() = " + FileUploadProperties.uploadDir());
 
         File file2 = new File(FileUploadProperties.uploadDir() + "/" + fileName);

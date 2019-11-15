@@ -34,11 +34,13 @@ public class FileUploadDownloadService {
 
     public String storeFile(MultipartFile file) {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        System.out.println("fileName = " + fileName);
 
         try {
             // 파일명에 부적합 문자가 있는지 확인한다.
-            if(fileName.contains(".."))
+            if (fileName.contains("..")) {
                 throw new FileUploadException("파일명에 부적합 문자가 포함되어 있습니다. " + fileName);
+            }
 
             Path targetLocation = this.fileLocation.resolve(fileName);
 
