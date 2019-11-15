@@ -72,3 +72,9 @@ jar {
     enabled(true)
 
 }
+
+task copyToLib(type: Copy) {
+    into "$buildDir/libs"
+    from(configurations.compile)
+}
+
