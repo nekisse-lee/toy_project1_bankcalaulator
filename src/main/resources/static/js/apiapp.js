@@ -112,8 +112,7 @@ var renderTemplate = function() {
         contentType: 'application/json; charset=utf-8',
         success: function(response) {
             console.log(response);
-            renderResultBox(response);
-            renderResultBox2(response);
+            renderResultListBox(response);
 
             console.log("=================" + response.calValue);
             // renderSelectBoxOption(response);
@@ -126,7 +125,7 @@ var renderTemplate = function() {
 
 
 
-let renderResultBox2 = function (calValue) {
+let renderCalculateResultBox2 = function (calValue) {
     let source = $('#result-string').html();
     let template = Handlebars.compile(source);
     let html = template(calValue);
@@ -138,7 +137,7 @@ let renderResultBox2 = function (calValue) {
     console.log("renderResultBox222 완료로그 ")
 };
 
-let renderResultBox = function(data) {
+let renderResultListBox = function(data) {
     let source = $('#result-template').html();
     let template = Handlebars.compile(source);
     let html = template(data);
@@ -165,8 +164,8 @@ $('#btCalFindUser').click(function () {
         data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
         success: function (response) {
             deleteTbody();
-            renderResultBox(response);
-            renderResultBox2(response);
+            renderResultListBox(response);
+            renderCalculateResultBox2(response);
         },
         error: function (response) {
             console.log('response', response);
@@ -184,7 +183,7 @@ $('#btFindUser').click(function () {
         data: {'depositor': depositor},
         success: function (response) {
             deleteTbody();
-            renderResultBox(response);
+            renderResultListBox(response);
         },
         error: function (response) {
             console.log('response', response);
@@ -206,7 +205,7 @@ $('#btFindAll').click(function () {
         data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
         success: function (response) {
             deleteTbody();
-            renderResultBox(response);
+            renderResultListBox(response);
         },
         error: function (response) {
             console.log('response', response);
