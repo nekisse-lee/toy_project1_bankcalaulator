@@ -5,11 +5,11 @@ import com.nekisse.domain.BankAccountRepository;
 import com.nekisse.domain.dto.BankDto;
 import com.nekisse.domain.dto.FindUserRequestDto;
 import com.nekisse.domain.dto.responsedto.BankDataResponse;
+import com.nekisse.domain.dto.responsedto.CalResultResponse;
 import com.nekisse.service.read.ExcelReadOption;
 import com.nekisse.service.read.ReadExcelFile;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -188,13 +188,10 @@ public class BankAccountService {
 
         int targetAmount = differenceInTheMonth * 10000;
 
-        int penalty = 0;
 
         System.out.println("targetAmount = " + targetAmount);
 
-//        if (totalAmount <= targetAmount) {
-        String cal = Calculator.Cal(dtoList, differenceInTheMonth, requestDto);
-//        }
+        CalResultResponse cal = Calculator.Cal(dtoList, differenceInTheMonth, requestDto);
 
         return new BankDataResponse(dtoList, cal);
     }

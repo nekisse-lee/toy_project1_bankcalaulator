@@ -10,7 +10,7 @@ public class BankDataResponse {
 
     private int totalAmount;
 
-    private String calValue;
+    private CalResultResponse calValue;
 
     public BankDataResponse(List<BankDto> bankDtoList, int totalAmount) {
         this.bankDtoList = bankDtoList;
@@ -21,12 +21,12 @@ public class BankDataResponse {
         this.bankDtoList = bankDtoList;
     }
 
-    public BankDataResponse(List<BankDto> bankDtoList, String calValue) {
+    public BankDataResponse(List<BankDto> bankDtoList, CalResultResponse calValue) {
         this.bankDtoList = bankDtoList;
         this.calValue = calValue;
     }
 
-    public String getCalValue() {
+    public CalResultResponse getCalValue() {
         return calValue;
     }
 

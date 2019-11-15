@@ -75,6 +75,7 @@ function reqFileName(fileName) {
 function deleteTbody() {
     $('#tbody').empty();
     $('#calValue').empty();
+    $('#depositor').val('');
 }
 
 function deleteData() {
@@ -163,7 +164,6 @@ $('#btCalFindUser').click(function () {
         type: "GET",
         data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
         success: function (response) {
-
             deleteTbody();
             renderResultBox(response);
             renderResultBox2(response);

@@ -2,18 +2,18 @@ package com.nekisse.service;
 
 import com.nekisse.domain.dto.BankDto;
 import com.nekisse.domain.dto.FindUserRequestDto;
-import org.apache.commons.lang3.StringUtils;
+import com.nekisse.domain.dto.responsedto.CalResultResponse;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Calculator {
 
-    public static String Cal(List<BankDto> dtoList, int differenceInTheMonth, FindUserRequestDto requestDto) {
+    public static final int MONTHLY_TARGET_MONEY = 10000;
+
+    public static CalResultResponse Cal(List<BankDto> dtoList, int differenceInTheMonth, FindUserRequestDto requestDto) {
 
         int userTotalAmount = 0;
         Collections.reverse(dtoList);
@@ -24,7 +24,7 @@ public class Calculator {
         for (int i = 0; i < dtoList.size(); i++) {
             if (dtoList.get(i).getTradingDate().substring(0, 7).equals(requestDto.getStartDate())) {
                 temp = i;
-                if (dtoList.get(temp).getDepositAmount() > 10000) {
+                if (dtoList.get(temp).getDepositAmount() > MONTHLY_TARGET_MONEY) {
                     differenceInTheMonth--;
                     temp++;
                 }
@@ -49,18 +49,22 @@ public class Calculator {
         for (BankDto bankDto : newList) {
             userTotalAmount = userTotalAmount + bankDto.getDepositAmount();
         }
-        System.out.println("differenceInTheMonth = " + differenceInTheMonth);
-        int targetMoney = (differenceInTheMonth * 10000) + ((differenceInTheMonth - newList.size()) * 10000);
-        System.out.println("targetMoney = " + targetMoney);
-        System.out.println("userTotalAmount = " + userTotalAmount);
-
+//        System.out.println("differenceInTheMonth = " + differenceInTheMonth);
+        int targetMoney = (differenceInTheMonth * MONTHLY_TARGET_MONEY) + ((differenceInTheMonth - newList.size()) * 10000);
+//        System.out.println("targetMoney = " + targetMoney);
+//        System.out.println("userTotalAmount = " + userTotalAmount);
+        int result = targetMoney - userTotalAmount;
 //        System.out.println("내야 할 돈 = targetMoney - userTotalAmount ===== " + (targetMoney - userTotalAmount));
-        String x = "조회기간 내야할 돈 = (월 * 10000) + ((월 - 안낸월의수) * 10000) = " + targetMoney + "\n"
-                + "총 낸돈 = " + userTotalAmount + "\n"
-                + "벌금 = 조회기간 내야할 돈 - 총 낸돈 = !!!!!" + (targetMoney - userTotalAmount) + "!!!!!";
-        System.out.println(x);
+//        String x = "조회기간 내야할 돈 = (월 * 10000) + ((월 - 안낸월의수) * 10000) = " + targetMoney + "\n"
+//                + "총 낸돈 = " + userTotalAmount + "\n"
+//                + "벌금 = 조회기간 내야할 돈 - 총 낸돈 = !!!!!" + (targetMoney - userTotalAmount) + "!!!!!";
+
+//        System.out.println(x);
         Collections.reverse(dtoList);
-        return x;
+
+//        CalResult calResult = new CalResult(targetMoney, userTotalAmount, result);
+//        return x;
+        return new CalResultResponse(targetMoney, userTotalAmount, result);
     }
 
     public static int getDifferenceInTheMonth(FindUserRequestDto requestDto) {

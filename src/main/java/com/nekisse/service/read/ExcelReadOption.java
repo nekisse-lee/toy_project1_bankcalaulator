@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelReadOption {
+    public static final int USER_SELECTED_EXCEL_ROW = 4;
     /**
      * 엑셀파일의 경로
      */
@@ -17,7 +18,7 @@ public class ExcelReadOption {
     /**
      * 추출을 시작할 행 번호
      */
-    private int startRow = 4;
+    private int startRow = USER_SELECTED_EXCEL_ROW;
 
     public String getFilePath() {
         return filePath;
