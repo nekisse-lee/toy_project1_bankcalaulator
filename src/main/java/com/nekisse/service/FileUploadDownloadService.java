@@ -17,8 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import static java.nio.charset.StandardCharsets.*;
-
 @Service
 public class FileUploadDownloadService {
 
@@ -36,9 +34,14 @@ public class FileUploadDownloadService {
         }
     }
 
-    public String storeFile(MultipartFile file) throws UnsupportedEncodingException {
+    public String storeFile(MultipartFile file)  {
 
-        String fileName = StringUtils.cleanPath(new String(file.getOriginalFilename().getBytes("8859_1"), UTF_8));
+        String fileName = null;
+        try {
+            fileName = StringUtils.cleanPath(new String(file.getOriginalFilename().getBytes("8859_1"), StandardCharsets.UTF_8));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         System.out.println("fileName = " + fileName);
 
         try {
