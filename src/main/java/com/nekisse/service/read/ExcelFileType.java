@@ -5,11 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.nekisse.exception.SendUserFileBadRequestException;
+import org.apache.poi.hssf.extractor.EventBasedExcelExtractor;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelFileType {
@@ -47,9 +50,14 @@ public class ExcelFileType {
             }
         } else if (filePath.toUpperCase().endsWith(".XLSX")) {
             try {
-                wb = WorkbookFactory.create(fis);
+
+//                OPCPackage open = OPCPackage.open(fis);
+                XSSFReader xssfReader = new XSSFReader(OPCPackage.open(fis));
+                wb = WorkbookFactory.create(xssfReader);
             } catch (IOException | InvalidFormatException e) {
                 throw new SendUserFileBadRequestException();
+            } catch (OpenXML4JException e) {
+                e.printStackTrace();
             }
         }
 

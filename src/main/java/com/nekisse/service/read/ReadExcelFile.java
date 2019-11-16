@@ -1,9 +1,6 @@
 package com.nekisse.service.read;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -116,7 +113,7 @@ public class ReadExcelFile {
     private static Row checkDeleteRow(Row row, Sheet sheet) {
         if (row != null) {
             Cell cell = row.getCell(0);
-            cell.setCellType(Cell.CELL_TYPE_STRING);
+            cell.setCellType(CellType.STRING);
             if (!cell.getStringCellValue().equals("거래일시")) {
                 return null;
             }

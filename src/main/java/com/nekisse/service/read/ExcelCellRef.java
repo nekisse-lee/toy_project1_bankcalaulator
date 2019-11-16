@@ -3,6 +3,7 @@ package com.nekisse.service.read;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.util.CellReference;
 
 import java.text.SimpleDateFormat;
@@ -35,9 +36,9 @@ public class ExcelCellRef {
         if (cell == null) {
             value = "";
         } else {
-            if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+            if (cell.getCellType() == CellType.FORMULA) {
                 value = cell.getCellFormula();
-            } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+            } else if (cell.getCellType() == CellType.NUMERIC) {
                 if (cellName.equals("A") && HSSFDateUtil.isCellDateFormatted(cell)) {
                     SimpleDateFormat fommatter = new SimpleDateFormat("yyyy-MM-dd HH:ss");
                     value = fommatter.format(cell.getDateCellValue());
@@ -49,12 +50,12 @@ public class ExcelCellRef {
 //                    } else {
 //                        value = cell.getNumericCellValue() + "";
 //                    }
-                    cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                    cell.setCellType(CellType.STRING);
                     value = cell.getStringCellValue();
                 }
 
 
-            } else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+            } else if (cell.getCellType() == CellType.STRING) {
 //                if ((cellName.equals("C") && !cell.getStringCellValue().contains("이자세금"))) {
 //                    String stringCellValue = cell.getStringCellValue();
 //                    System.out.println("valueaa = " + stringCellValue.trim());
@@ -62,11 +63,11 @@ public class ExcelCellRef {
 //                }
                 String stringCellValue = cell.getStringCellValue();
                 value = cell.getStringCellValue().substring(1, stringCellValue.length()).trim();
-            } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+            } else if (cell.getCellType() == CellType.BOOLEAN) {
                 value = cell.getBooleanCellValue() + "";
-            } else if (cell.getCellType() == Cell.CELL_TYPE_ERROR) {
+            } else if (cell.getCellType() == CellType.ERROR) {
                 value = cell.getErrorCellValue() + "";
-            } else if (cell.getCellType() == Cell.CELL_TYPE_BLANK) {
+            } else if (cell.getCellType() == CellType.BLANK) {
                 value = "";
             } else {
                 value = cell.getStringCellValue();
@@ -77,7 +78,7 @@ public class ExcelCellRef {
     }
 
     public static String test(Cell cell) {
-        cell.setCellType(Cell.CELL_TYPE_STRING);
+        cell.setCellType(CellType.STRING);
         return cell.getStringCellValue();
     }
 }
