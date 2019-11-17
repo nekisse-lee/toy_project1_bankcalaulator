@@ -41,5 +41,13 @@ public class AdviceController {
         return new ErrorResponse("1월부터 12월 까지만 조회 가능합니다.");
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ErrorResponse handler(NumberFormatException e) {
+
+        System.out.println("e.getMessage() = " + e.getCause());
+        return new ErrorResponse("숫자만 가능 합니다.");
+    }
+
 
 }
