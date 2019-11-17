@@ -15,14 +15,24 @@ public class FileUtils {
         System.out.println("FileName = " + fileName);
         System.out.println("fileUploadProperties.getUploadDir() = " + FileUploadProperties.uploadDir());
 
-        File file2 = new File(FileUploadProperties.uploadDir() + "/" + fileName);
-        System.out.println("file2 = " + file2);
-        String name = file2.getName();
-        System.out.println("name = " + name);
-        if (file2.delete()) {
+        File file = new File(FileUploadProperties.uploadDir() + "/" + fileName);
+        System.out.println("file2 = " + file);
+        System.out.println("fileName = " + file.getName());
+        if (file.delete()) {
             System.out.println("삭제 완료 = ");
         }
 
+        File folder = new File(FileUploadProperties.uploadDir());
+        File[] files = folder.listFiles();
+        if (files != null && files.length != 0) {
+            for (File fileInFolder : files) {
+                fileInFolder.delete();
+            }
+            System.out.println("files = " + files.length);
+            System.out.println(" 폴더 내 파일 삭제 완료");
+        } else {
+            System.out.println("원래비어있었음");
+        }
 
     }
 

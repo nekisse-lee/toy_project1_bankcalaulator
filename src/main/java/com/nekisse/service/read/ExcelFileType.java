@@ -52,12 +52,10 @@ public class ExcelFileType {
             try {
 
 //                OPCPackage open = OPCPackage.open(fis);
-                XSSFReader xssfReader = new XSSFReader(OPCPackage.open(fis));
+                XSSFWorkbook xssfReader = new XSSFWorkbook(fis);
                 wb = WorkbookFactory.create(xssfReader);
-            } catch (IOException | InvalidFormatException e) {
+            } catch (IOException e) {
                 throw new SendUserFileBadRequestException();
-            } catch (OpenXML4JException e) {
-                e.printStackTrace();
             }
         }
 

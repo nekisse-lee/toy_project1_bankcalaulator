@@ -134,7 +134,7 @@ let renderCalculateResultBox2 = function (calValue) {
     console.log(html);
     // tbodyy.html('');
     $('#calValue').append(html);
-    console.log("renderResultBox222 완료로그 ")
+    console.log("renderCalculateResultBox2 완료로그 ")
 };
 
 let renderResultListBox = function(data) {
@@ -142,13 +142,13 @@ let renderResultListBox = function(data) {
     let template = Handlebars.compile(source);
     let html = template(data);
     // $('#tbody2').html(html);
-    console.log('renderresultbox =  ');
+    console.log('renderResultListBox =  ');
     console.log(data);
     console.log("-------------------");
     // console.log(html);
     // tbodyy.html('');
     tbodyy.append(html);
-    console.log("renderResultBox 완료로그 ")
+    console.log("renderResultListBox 완료로그 ")
 };
 
 
@@ -159,7 +159,7 @@ $('#btCalFindUser').click(function () {
     console.log(depositor + "+" + startDate + "+" + endDate);
 
     $.ajax({
-        url: '/api/find',
+        url: '/api/calculateOfOneDepositor',
         type: "GET",
         data: {'startDate': startDate,'endDate': endDate,'depositor': depositor},
         success: function (response) {
@@ -215,7 +215,25 @@ $('#btFindAll').click(function () {
 });
 
 
+$('#btSetMoney').click(function () {
+    let userSetMoney = $('#setMoney').val();
+    console.log(userSetMoney);
 
+    $.ajax({
+        url : 'api/setMoney',
+        type :"GET",
+        data: {'setMoney': userSetMoney},
+        success: function (res) {
+            alert(res);
+        },
+        error: function (res) {
+            console.log('response', res);
+            alert(res.responseJSON.message);
+        }
+
+    });
+
+});
 
 // $(document).ready(function () {
 //     init();

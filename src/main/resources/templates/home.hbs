@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="">
 
-    <title>국민 계산기</title>
+    <title>국민은행 계산기</title>
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
 </head>
 <body id="mainBody">
 
-<h1>국민은행 .xls 파일만 가능</h1>
+<h1>국민은행 Excel 97-2004 통합문서 (.xls) 파일만 가능</h1>
 
 
 <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,6 +69,11 @@
     </button>
     <!--<button type="submit" class="btn btn-outline-success my-2 my-sm-0" id="testBt">테스트버튼!! 데이터 삭제 type submit</button>-->
 
+    <div class="form-inline my-2 my-lg-0" >
+        <input class="form-control mr-sm-4" type="text" name="setMoney" id="setMoney" placeholder="ex) 10000"
+               aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="btSetMoney">매월 내야할 돈 설정</button>
+    </div>
 
     <form class="form-inline my-2 my-lg-0" action="/find" method="get">
         <input class="form-control mr-sm-2" type="text" name="startDate" id="startDate" placeholder="시작월 ex) 1999-01"
@@ -123,11 +128,11 @@
 </div>
 
 <script id="result-string" type="text/x-handlebars-template">
-    <h2>계산식 = (조회기간의 개월수 * 10000) + ((조회기간의 개월수 - 안낸월의 수) * 10000) </h2>
+    <h2>계산식 = (조회기간의 개월수 * \{{calValue.monthlyTargetMoney}}) + ((조회기간의 개월수 - 안낸월의 수) * \{{calValue.monthlyTargetMoney}}) </h2>
     <h2>---------------------------</h2>
 
 
-    <h3>계산식 =  \{{calValue.targetMoney}}</h3>
+    <h3>계산식 =  \{{calValue.userTargetMoney}}</h3>
     <h3>총 낸돈 =  \{{calValue.userTotalAmount}}</h3>
     <h3>내야할 돈 =  \{{calValue.result}}</h3>
 

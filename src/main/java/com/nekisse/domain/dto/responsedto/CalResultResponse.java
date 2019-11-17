@@ -5,23 +5,26 @@ import lombok.Builder;
 @Builder
 public class CalResultResponse {
 
-    int targetMoney;
+    int userTargetMoney;
 
     int userTotalAmount;
 
     int result;
 
+    int monthlyTargetMoney;
+
     public CalResultResponse() {
     }
 
-    public CalResultResponse(int targetMoney, int userTotalAmount, int result) {
-        this.targetMoney = targetMoney;
+    public CalResultResponse(int userTargetMoney, int userTotalAmount, int result, int monthlyTargetMoney) {
+        this.userTargetMoney = userTargetMoney;
         this.userTotalAmount = userTotalAmount;
         this.result = result;
+        this.monthlyTargetMoney = monthlyTargetMoney;
     }
 
-    public int getTargetMoney() {
-        return targetMoney;
+    public int getUserTargetMoney() {
+        return userTargetMoney;
     }
 
     public int getUserTotalAmount() {
@@ -30,5 +33,9 @@ public class CalResultResponse {
 
     public int getResult() {
         return result;
+    }
+
+    public int getMonthlyTargetMoney() {
+        return monthlyTargetMoney;
     }
 }

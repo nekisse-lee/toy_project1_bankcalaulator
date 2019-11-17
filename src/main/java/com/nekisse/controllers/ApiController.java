@@ -3,6 +3,7 @@ package com.nekisse.controllers;
 import com.nekisse.domain.dto.FindUserRequestDto;
 import com.nekisse.domain.dto.responsedto.BankDataResponse;
 import com.nekisse.service.BankAccountService;
+import com.nekisse.service.Calculator;
 import com.nekisse.service.FileUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +19,12 @@ public class ApiController {
         this.bankAccountService = bankAccountService;
     }
 
-
     @GetMapping({""})
     public BankDataResponse findAll() {
         return bankAccountService.getAllDepositorDataResponse();
     }
 
-    @GetMapping({"/find"})
+    @GetMapping({"/calculateOfOneDepositor"})
     public BankDataResponse calculateOneDepositor(@Valid FindUserRequestDto name) {
         return bankAccountService.getDataListOfOneDepositor(name);
     }
@@ -42,5 +42,12 @@ public class ApiController {
         FileUtils.deleteFile(fileName);
     }
 
+    @GetMapping("/setMoney")
+    public int setMoney(@RequestParam(required = false, defaultValue = "10000") String setMoney) {
+        Calculator.setMonthlyTargetMoney(setMoney);
+        return Calculator.getMonthlyTargetMoney();
+
+//        return "home";
+    }
 
 }

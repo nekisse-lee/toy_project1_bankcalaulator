@@ -11,7 +11,15 @@ import java.util.List;
 
 public class Calculator {
 
-    public static final int MONTHLY_TARGET_MONEY = 10000;
+    public static int MONTHLY_TARGET_MONEY = 10000;
+
+    public static int getMonthlyTargetMoney() {
+        return MONTHLY_TARGET_MONEY;
+    }
+
+    public static void setMonthlyTargetMoney(String monthlyTargetMoney) {
+        MONTHLY_TARGET_MONEY = Integer.parseInt(monthlyTargetMoney);
+    }
 
     public static CalResultResponse Cal(List<BankDto> dtoList, int differenceInTheMonth, FindUserRequestDto requestDto) {
 
@@ -41,16 +49,12 @@ public class Calculator {
         System.out.println("newList.size() = " + newList.size());
         System.out.println("newList = " + newList);
 
-//        if (dtoList.size() == newList.size()) {
-//            throw new IllegalArgumentException("조회하는 유저의 시작월이 존재하지 않습니다.");
-//        }
-
 
         for (BankDto bankDto : newList) {
             userTotalAmount = userTotalAmount + bankDto.getDepositAmount();
         }
 //        System.out.println("differenceInTheMonth = " + differenceInTheMonth);
-        int targetMoney = (differenceInTheMonth * MONTHLY_TARGET_MONEY) + ((differenceInTheMonth - newList.size()) * 10000);
+        int targetMoney = (differenceInTheMonth * MONTHLY_TARGET_MONEY) + ((differenceInTheMonth - newList.size()) * MONTHLY_TARGET_MONEY);
 //        System.out.println("targetMoney = " + targetMoney);
 //        System.out.println("userTotalAmount = " + userTotalAmount);
         int result = targetMoney - userTotalAmount;
@@ -58,13 +62,12 @@ public class Calculator {
 //        String x = "조회기간 내야할 돈 = (월 * 10000) + ((월 - 안낸월의수) * 10000) = " + targetMoney + "\n"
 //                + "총 낸돈 = " + userTotalAmount + "\n"
 //                + "벌금 = 조회기간 내야할 돈 - 총 낸돈 = !!!!!" + (targetMoney - userTotalAmount) + "!!!!!";
-
 //        System.out.println(x);
         Collections.reverse(dtoList);
 
 //        CalResult calResult = new CalResult(targetMoney, userTotalAmount, result);
 //        return x;
-        return new CalResultResponse(targetMoney, userTotalAmount, result);
+        return new CalResultResponse(targetMoney, userTotalAmount, result,MONTHLY_TARGET_MONEY);
     }
 
     public static int getDifferenceInTheMonth(FindUserRequestDto requestDto) {
