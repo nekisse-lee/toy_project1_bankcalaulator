@@ -107,17 +107,7 @@
             </tr>
 
             </thead>
-            {{#depositors}}
-                <tbody>
-                <tr>
-                    <td>{{this.tradingDate}}</td>
-                    <td>{{this.depositor}}</td>
-                    <td>{{this.withdrawalAmount}}</td>
-                    <td>{{depositAmount}}</td>
-                    <td>{{totalAmount}}</td>
-                </tr>
-                </tbody>
-            {{/depositors}}
+
 
             <tbody id="tbody">
 
@@ -128,7 +118,7 @@
 </div>
 
 <script id="result-string" type="text/x-handlebars-template">
-    <h2>계산식 = (조회기간의 개월수 * \{{calValue.monthlyTargetMoney}}) + ((조회기간의 개월수 - 안낸월의 수) * \{{calValue.monthlyTargetMoney}}) </h2>
+    <h2>계산식 = (조회기간의 개월수 * \{{calValue.monthlyTargetMoney}}) + ((안낸 개월수) * \{{calValue.monthlyTargetMoney}}) </h2>
     <h2>---------------------------</h2>
 
 
@@ -153,6 +143,7 @@
 <script src="/webjars/jquery/3.3.1/jquery.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
 <script src="/webjars/popper.js/1.14.7/popper.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.5/handlebars.js"></script>
 <!--<script src="/static/js/app.js"></script>-->
 <script src="/static/js/apiapp.js"></script>

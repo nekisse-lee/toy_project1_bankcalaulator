@@ -1,7 +1,7 @@
 package com.nekisse.service;
 
-import com.nekisse.domain.BankAccount;
-import com.nekisse.domain.BankAccountRepository;
+import com.nekisse.domain.DepositHistory;
+import com.nekisse.domain.DepositHistoryRepository;
 import com.nekisse.domain.dto.BankDto;
 import com.nekisse.domain.dto.FindUserRequestDto;
 import com.nekisse.domain.dto.responsedto.BankDataResponse;
@@ -16,9 +16,9 @@ import java.util.Map;
 
 @Service
 public class BankAccountService {
-    private final BankAccountRepository bankAccountRepository;
+    private final DepositHistoryRepository bankAccountRepository;
 
-    public BankAccountService(BankAccountRepository bankAccountRepository) {
+    public BankAccountService(DepositHistoryRepository bankAccountRepository) {
         this.bankAccountRepository = bankAccountRepository;
     }
 
@@ -73,7 +73,7 @@ public class BankAccountService {
             }
 
         }
-        BankAccount bankAccount = new BankAccount();
+        DepositHistory bankAccount = new DepositHistory();
         bankAccount.setTradingDate(bankDto.getTradingDate());
         bankAccount.setDepositor(bankDto.getDepositor());
         bankAccount.setWithdrawalAmount(bankDto.getWithdrawalAmount());
@@ -88,14 +88,14 @@ public class BankAccountService {
         if (name == null) {
             return findAll(newBankDtos);
         }
-        List<BankAccount> all = bankAccountRepository.findAll();
-        for (BankAccount bankAccount : all) {
+        List<DepositHistory> all = bankAccountRepository.findAll();
+        for (DepositHistory bankAccount : all) {
             System.out.println(bankAccount.getDepositor());
         }
         System.out.println("name.getDepositor() = " + name.getDepositor());
-        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(name.getDepositor());
+        List<DepositHistory> byDepositor = bankAccountRepository.findByDepositor(name.getDepositor());
 
-        for (BankAccount bankAccount : byDepositor) {
+        for (DepositHistory bankAccount : byDepositor) {
             BankDto bankDto = new BankDto();
             bankDto.setTradingDate(bankAccount.getTradingDate());
             bankDto.setDepositor(bankAccount.getDepositor());
@@ -111,9 +111,9 @@ public class BankAccountService {
     }
 
     private List<BankDto> findAll(List<BankDto> newBankAccounts) {
-        List<BankAccount> all = bankAccountRepository.findAll();
+        List<DepositHistory> all = bankAccountRepository.findAll();
 
-        for (BankAccount bankAccount : all) {
+        for (DepositHistory bankAccount : all) {
             newBankAccounts.add(BankDto.builder()
                     .depositor(bankAccount.getDepositor())
                     .tradingDate(bankAccount.getTradingDate())
@@ -130,7 +130,7 @@ public class BankAccountService {
 
     }
 
-    public List<BankDto> findAll() {
+    /*public List<BankDto> findAll() {
         List<BankDto> bankDtos = new ArrayList<>();
 
         List<BankAccount> all = bankAccountRepository.findAll();
@@ -144,13 +144,13 @@ public class BankAccountService {
                     .build());
         }
         return bankDtos;
-    }
+    }*/
 
     public BankDataResponse getAllDepositorDataResponse() {
         List<BankDto> bankDtos = new ArrayList<>();
 
-        List<BankAccount> all = bankAccountRepository.findAll();
-        for (BankAccount bankAccount : all) {
+        List<DepositHistory> all = bankAccountRepository.findAll();
+        for (DepositHistory bankAccount : all) {
             bankDtos.add(BankDto.builder()
                     .depositor(bankAccount.getDepositor())
                     .tradingDate(bankAccount.getTradingDate())
@@ -186,12 +186,10 @@ public class BankAccountService {
         System.out.println("month차이 = " + differenceInTheMonth);
 
 
-        int targetAmount = differenceInTheMonth * 10000;
+//        int targetAmount = differenceInTheMonth * 10000;
+//        System.out.println("targetAmount = " + targetAmount);
 
-
-        System.out.println("targetAmount = " + targetAmount);
-
-        CalResultResponse cal = Calculator.Cal(dtoList, differenceInTheMonth, requestDto);
+        CalResultResponse cal = Calculator.calculate2(dtoList, differenceInTheMonth, requestDto);
 
         return new BankDataResponse(dtoList, cal);
     }
@@ -204,9 +202,9 @@ public class BankAccountService {
     }
 
     private List<BankDto> getBankDtoListOfDepositor(FindUserRequestDto requestDto) {
-        List<BankAccount> byDepositor = bankAccountRepository.findByDepositor(requestDto.getDepositor());
+        List<DepositHistory> byDepositor = bankAccountRepository.findByDepositor(requestDto.getDepositor());
         List<BankDto> dtoList = new ArrayList<>();
-        for (BankAccount bankAccount : byDepositor) {
+        for (DepositHistory bankAccount : byDepositor) {
 
             dtoList.add(new BankDto(
                     bankAccount.getTradingDate(),

@@ -26,6 +26,12 @@ public class BankDto {
     public BankDto() {
     }
 
+    public BankDto(String tradingDate, String depositor, Integer depositAmount) {
+        this.depositor = depositor;
+        this.tradingDate = tradingDate;
+        this.depositAmount = depositAmount;
+    }
+
     public String getTradingDate() {
         return tradingDate;
     }

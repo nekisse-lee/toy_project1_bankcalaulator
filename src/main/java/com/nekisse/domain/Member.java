@@ -7,7 +7,7 @@ public class Member {
 
     private String name;
 
-    private List<DepositHistory> depositHistories;
+    private List<DepositHistoryDto> depositHistories;
 
     private int totalAmount;
 
@@ -56,11 +56,11 @@ public class Member {
         this.name = name;
     }
 
-    public List<DepositHistory> getDepositHistories() {
+    public List<DepositHistoryDto> getDepositHistories() {
         return depositHistories;
     }
 
-    public void setDepositHistories(List<DepositHistory> depositHistories) {
+    public void setDepositHistories(List<DepositHistoryDto> depositHistories) {
         this.depositHistories = depositHistories;
     }
 

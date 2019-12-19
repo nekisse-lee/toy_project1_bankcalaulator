@@ -25,22 +25,23 @@ public class HomeController {
 
     //    @GetMapping({"", "/find/{name}", "/find"})
     @GetMapping({""})
-    public String nome2(@PathVariable(required = false, name = "userName") FindUserRequestDto name, Model model, @RequestParam(name = "fileName", required = false) String fileName) {
-        System.out.println("reqqqq = " + fileName);
+    public String home2() {
+//        System.out.println("reqqqq = " + fileName);
 //        bankAccountService.excelFileReadAndSave(fileName);
-//        model.addAttribute("depositors", bankAccountService.findHistoryOfNameOfDepositor(name));
+//        model.addAttribute("depositors", bankAc
+//        countService.findHistoryOfNameOfDepositor(name));
 //        System.out.println("members = " + members);
         return "home";
     }
 
     @GetMapping("/test")
-    public String test(@RequestParam String fileName) {
+    public String test(@RequestParam(required = false) String fileName) {
         System.out.println("Controller=" + fileName);
         return "home";
     }
 
 
-    @GetMapping({"/find"})
+/*    @GetMapping({"/find"})
 //    @RequestMapping({"/find/{name}","/find"})
     public String findName(FindUserRequestDto name, Model model) {
 
@@ -48,7 +49,7 @@ public class HomeController {
 //        return bankAccountService.findHistoryOfNameOfDepositor(name).toString();
         return "home";
 //        return String.valueOf(bankAccountService.findHistoryOfNameOfDepositor(name));
-    }
+    }*/
 
 
 //@PostMapping("/deleteData")
